@@ -30,21 +30,14 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             DataGridView = new DataGridView();
-            ID = new DataGridViewTextBoxColumn();
-            SenderName = new DataGridViewTextBoxColumn();
-            DocumentTitle = new DataGridViewTextBoxColumn();
-            ReceiptDate = new DataGridViewTextBoxColumn();
-            DocumentTopic = new DataGridViewTextBoxColumn();
-            DocumentContent = new DataGridViewTextBoxColumn();
             ButtonLoadDataBase = new Button();
             ButtonSaveDataBase = new Button();
             ButtonDeleteDataBase = new Button();
             ButtonExit = new Button();
-            ButtonSortDataBase = new Button();
             ButtonFilterDataBase = new Button();
             ButtonAddDocument = new Button();
-            button1 = new Button();
-            button2 = new Button();
+            ButtonDelete = new Button();
+            buttonRedactDocument = new Button();
             TextBox = new TextBox();
             label1 = new Label();
             ButtonSEarchDocument = new Button();
@@ -55,54 +48,13 @@
             // 
             // DataGridView
             // 
+            DataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             DataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            DataGridView.Columns.AddRange(new DataGridViewColumn[] { ID, SenderName, DocumentTitle, ReceiptDate, DocumentTopic, DocumentContent });
             DataGridView.Location = new Point(16, 66);
             DataGridView.Name = "DataGridView";
-            DataGridView.Size = new Size(1019, 295);
+            DataGridView.Size = new Size(1018, 295);
             DataGridView.TabIndex = 0;
-            // 
-            // ID
-            // 
-            ID.HeaderText = "ID";
-            ID.Name = "ID";
-            ID.ReadOnly = true;
-            ID.Width = 25;
-            // 
-            // SenderName
-            // 
-            SenderName.HeaderText = "Отправитель";
-            SenderName.Name = "SenderName";
-            SenderName.ReadOnly = true;
-            SenderName.Width = 150;
-            // 
-            // DocumentTitle
-            // 
-            DocumentTitle.HeaderText = "Заголовок";
-            DocumentTitle.Name = "DocumentTitle";
-            DocumentTitle.ReadOnly = true;
-            DocumentTitle.Width = 150;
-            // 
-            // ReceiptDate
-            // 
-            ReceiptDate.HeaderText = "Дата приёма";
-            ReceiptDate.Name = "ReceiptDate";
-            ReceiptDate.ReadOnly = true;
-            ReceiptDate.Width = 200;
-            // 
-            // DocumentTopic
-            // 
-            DocumentTopic.HeaderText = "Тема";
-            DocumentTopic.Name = "DocumentTopic";
-            DocumentTopic.ReadOnly = true;
-            DocumentTopic.Width = 150;
-            // 
-            // DocumentContent
-            // 
-            DocumentContent.HeaderText = "Содаржание";
-            DocumentContent.Name = "DocumentContent";
-            DocumentContent.ReadOnly = true;
-            DocumentContent.Width = 300;
+            DataGridView.SelectionChanged += DataGridView_SelectionChanged;
             // 
             // ButtonLoadDataBase
             // 
@@ -113,6 +65,7 @@
             ButtonLoadDataBase.TabIndex = 1;
             ButtonLoadDataBase.Text = "Загрузить базу данных";
             ButtonLoadDataBase.UseVisualStyleBackColor = true;
+            ButtonLoadDataBase.Click += ButtonLoadDataBase_Click;
             // 
             // ButtonSaveDataBase
             // 
@@ -133,34 +86,24 @@
             ButtonDeleteDataBase.TabIndex = 1;
             ButtonDeleteDataBase.Text = "Удалить базу данных";
             ButtonDeleteDataBase.UseVisualStyleBackColor = true;
+            ButtonDeleteDataBase.Click += ButtonDeleteDataBase_Click;
             // 
             // ButtonExit
             // 
             ButtonExit.BackgroundImage = (Image)resources.GetObject("ButtonExit.BackgroundImage");
             ButtonExit.BackgroundImageLayout = ImageLayout.Zoom;
             ButtonExit.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            ButtonExit.Location = new Point(977, 485);
+            ButtonExit.Location = new Point(984, 485);
             ButtonExit.Name = "ButtonExit";
             ButtonExit.Size = new Size(50, 55);
             ButtonExit.TabIndex = 1;
             ButtonExit.UseVisualStyleBackColor = true;
             ButtonExit.Click += ButtonExit_Click;
             // 
-            // ButtonSortDataBase
-            // 
-            ButtonSortDataBase.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            ButtonSortDataBase.Location = new Point(16, 12);
-            ButtonSortDataBase.Name = "ButtonSortDataBase";
-            ButtonSortDataBase.Size = new Size(188, 48);
-            ButtonSortDataBase.TabIndex = 2;
-            ButtonSortDataBase.Text = "Сортировать";
-            ButtonSortDataBase.UseVisualStyleBackColor = true;
-            ButtonSortDataBase.Click += ButtonSortDataBase_Click;
-            // 
             // ButtonFilterDataBase
             // 
             ButtonFilterDataBase.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            ButtonFilterDataBase.Location = new Point(223, 12);
+            ButtonFilterDataBase.Location = new Point(16, 12);
             ButtonFilterDataBase.Name = "ButtonFilterDataBase";
             ButtonFilterDataBase.Size = new Size(188, 48);
             ButtonFilterDataBase.TabIndex = 3;
@@ -177,26 +120,29 @@
             ButtonAddDocument.TabIndex = 1;
             ButtonAddDocument.Text = "Добавить документ";
             ButtonAddDocument.UseVisualStyleBackColor = true;
+            ButtonAddDocument.Click += ButtonAddDocument_Click;
             // 
-            // button1
+            // ButtonDelete
             // 
-            button1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            button1.Location = new Point(404, 367);
-            button1.Name = "button1";
-            button1.Size = new Size(188, 55);
-            button1.TabIndex = 1;
-            button1.Text = "Удалить документ";
-            button1.UseVisualStyleBackColor = true;
+            ButtonDelete.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            ButtonDelete.Location = new Point(404, 367);
+            ButtonDelete.Name = "ButtonDelete";
+            ButtonDelete.Size = new Size(188, 55);
+            ButtonDelete.TabIndex = 1;
+            ButtonDelete.Text = "Удалить документ";
+            ButtonDelete.UseVisualStyleBackColor = true;
+            ButtonDelete.Click += ButtonDelete_Click;
             // 
-            // button2
+            // buttonRedactDocument
             // 
-            button2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            button2.Location = new Point(16, 367);
-            button2.Name = "button2";
-            button2.Size = new Size(188, 55);
-            button2.TabIndex = 1;
-            button2.Text = "Редактировать документ";
-            button2.UseVisualStyleBackColor = true;
+            buttonRedactDocument.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            buttonRedactDocument.Location = new Point(16, 367);
+            buttonRedactDocument.Name = "buttonRedactDocument";
+            buttonRedactDocument.Size = new Size(188, 55);
+            buttonRedactDocument.TabIndex = 1;
+            buttonRedactDocument.Text = "Редактировать документ";
+            buttonRedactDocument.UseVisualStyleBackColor = true;
+            buttonRedactDocument.Click += buttonRedactDocument_Click;
             // 
             // TextBox
             // 
@@ -204,7 +150,7 @@
             TextBox.Multiline = true;
             TextBox.Name = "TextBox";
             TextBox.ScrollBars = ScrollBars.Vertical;
-            TextBox.Size = new Size(373, 152);
+            TextBox.Size = new Size(380, 152);
             TextBox.TabIndex = 4;
             // 
             // label1
@@ -213,16 +159,16 @@
             label1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
             label1.Location = new Point(598, 367);
             label1.Name = "label1";
-            label1.Size = new Size(131, 21);
+            label1.Size = new Size(232, 21);
             label1.TabIndex = 5;
-            label1.Text = "Вывод значений:";
+            label1.Text = "Вывод содержания документа:";
             // 
             // ButtonSEarchDocument
             // 
             ButtonSEarchDocument.BackgroundImage = (Image)resources.GetObject("ButtonSEarchDocument.BackgroundImage");
             ButtonSEarchDocument.BackgroundImageLayout = ImageLayout.Zoom;
             ButtonSEarchDocument.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            ButtonSEarchDocument.Location = new Point(977, 9);
+            ButtonSEarchDocument.Location = new Point(984, 12);
             ButtonSEarchDocument.Name = "ButtonSEarchDocument";
             ButtonSEarchDocument.Size = new Size(50, 48);
             ButtonSEarchDocument.TabIndex = 3;
@@ -230,16 +176,16 @@
             // 
             // textBox1
             // 
-            textBox1.Location = new Point(627, 28);
+            textBox1.Location = new Point(598, 28);
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(344, 23);
+            textBox1.Size = new Size(380, 23);
             textBox1.TabIndex = 6;
             // 
             // label2
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            label2.Location = new Point(627, 4);
+            label2.Location = new Point(598, 4);
             label2.Name = "label2";
             label2.Size = new Size(235, 21);
             label2.TabIndex = 5;
@@ -249,18 +195,17 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1039, 552);
+            ClientSize = new Size(1045, 552);
             Controls.Add(textBox1);
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(TextBox);
             Controls.Add(ButtonSEarchDocument);
             Controls.Add(ButtonFilterDataBase);
-            Controls.Add(ButtonSortDataBase);
             Controls.Add(ButtonExit);
             Controls.Add(ButtonDeleteDataBase);
-            Controls.Add(button2);
-            Controls.Add(button1);
+            Controls.Add(buttonRedactDocument);
+            Controls.Add(ButtonDelete);
             Controls.Add(ButtonAddDocument);
             Controls.Add(ButtonSaveDataBase);
             Controls.Add(ButtonLoadDataBase);
@@ -281,17 +226,10 @@
         private Button ButtonSaveDataBase;
         private Button ButtonDeleteDataBase;
         private Button ButtonExit;
-        private Button ButtonSortDataBase;
         private Button ButtonFilterDataBase;
         private Button ButtonAddDocument;
-        private Button button1;
-        private Button button2;
-        private DataGridViewTextBoxColumn ID;
-        private DataGridViewTextBoxColumn SenderName;
-        private DataGridViewTextBoxColumn DocumentTitle;
-        private DataGridViewTextBoxColumn ReceiptDate;
-        private DataGridViewTextBoxColumn DocumentTopic;
-        private DataGridViewTextBoxColumn DocumentContent;
+        private Button ButtonDelete;
+        private Button buttonRedactDocument;
         private TextBox TextBox;
         private Label label1;
         private Button ButtonSEarchDocument;

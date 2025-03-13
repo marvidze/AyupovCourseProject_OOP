@@ -10,22 +10,29 @@ using System.Windows.Forms;
 
 namespace AyupovCourseProject1
 {
-    public partial class SortDialogForm : Form
+    public partial class SaveLoadDialogForm : Form
     {
-        public SortDialogForm()
+        public SaveLoadDialogForm()
         {
             InitializeComponent();
         }
 
         private void ButtonClose_Click(object sender, EventArgs e)
         {
-            this.DialogResult = DialogResult.No;
+            this.DialogResult = DialogResult.Cancel;
             Close();
         }
 
-        private void ButtonSortReeiptDate_Click(object sender, EventArgs e)
+        private void ButtonCreate_Click(object sender, EventArgs e)
         {
+            this.DialogResult = DialogResult.Yes;
+            Close();
+        }
 
+        private void ButtonLoad_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.Yes;
+            Close();
         }
     }
 }

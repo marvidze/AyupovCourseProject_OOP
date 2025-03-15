@@ -151,10 +151,6 @@ namespace AyupovCourseProject1
                 MessageBox.Show("База данных не загружена.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        private void CreateDocument(string senderName, string documentTitle, DateTime receiptDate, string documentTopic, string documentContent)
-        {
-            DatabaseService.CreateDocument(senderName, documentTitle, receiptDate, documentTopic, documentContent);
-        }
         private void DeleteDocument(int documentId)
         {
             DatabaseService.DeleteDocument(documentId);   
@@ -163,10 +159,13 @@ namespace AyupovCourseProject1
 
         private void ButtonAddDocument_Click(object sender, EventArgs e)
         {
-            DateTime date = DateTime.Now;
-            CreateDocument("Marat", "Title", date, "Topic", "COOOOOOOOOOOOOOOOOONTEEEEEEEEEEEEEEENT");
-            LoadDataIntoGridView();
-            MessageBox.Show("Документ успешно создан!", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            CreateDocumentForm createDocumentForm = new CreateDocumentForm(CurrentDbPath);
+            DialogResult result = createDocumentForm.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                LoadDataIntoGridView();
+                MessageBox.Show("Документ успешно создан!", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         private void ButtonRedactDocument_Click(object sender, EventArgs e)
@@ -176,8 +175,8 @@ namespace AyupovCourseProject1
                 
                 int documentId = (int)DataGridView.SelectedRows[0].Cells["Id"].Value;
 
-                RedactDocumentForm OneParametrForm = new RedactDocumentForm(documentId, CurrentDbPath);
-                DialogResult result = OneParametrForm.ShowDialog();
+                RedactDocumentForm redactDocumentForm = new RedactDocumentForm(documentId, CurrentDbPath);
+                DialogResult result = redactDocumentForm.ShowDialog();
                 if (result == DialogResult.OK)
                 {
                     LoadDataIntoGridView();

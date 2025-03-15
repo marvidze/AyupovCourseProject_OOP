@@ -14,14 +14,25 @@ namespace AyupovCourseProject1
         public DateTime ReceiptDate { get; set; } = DateTime.Now;
         public string DocumentTopic { get; set; } = "Созданный по умолчанию документ";
         public string DocumentContent { get; set; } = "";
-        public static int CountOfElements { get; private set; } = 0;
+        public static int CountOfElements { get; set; } = 0;
 
+        /// <summary>
+        /// Конструктор по умолчанию класса MyDocument
+        /// </summary>
         public MyDocument()
         {
             CountOfElements++;
             ID = CountOfElements;
         }
 
+        /// <summary>
+        /// Конструктор с параметрами класса MyDocument
+        /// </summary>
+        /// <param name="senderName">Имя отправителя</param>
+        /// <param name="documentTitle">Заголовок документа</param>
+        /// <param name="receiptDate">Дата созания документа</param>
+        /// <param name="documentTopic">Тема документа</param>
+        /// <param name="documentContetnt">Содержание документа</param>
         public MyDocument(string senderName, string documentTitle, DateTime receiptDate, string documentTopic, string documentContetnt) : this()
         {
             SenderName = senderName;

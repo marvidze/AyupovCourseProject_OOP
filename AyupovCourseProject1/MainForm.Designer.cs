@@ -38,10 +38,10 @@
             ButtonAddDocument = new Button();
             ButtonDelete = new Button();
             buttonRedactDocument = new Button();
-            TextBox = new TextBox();
+            TextBoxContent = new TextBox();
             label1 = new Label();
             ButtonSEarchDocument = new Button();
-            textBox1 = new TextBox();
+            TextBoxTitle = new TextBox();
             label2 = new Label();
             ((System.ComponentModel.ISupportInitialize)DataGridView).BeginInit();
             SuspendLayout();
@@ -76,6 +76,7 @@
             ButtonSaveDataBase.TabIndex = 1;
             ButtonSaveDataBase.Text = "Сохранить базу данных";
             ButtonSaveDataBase.UseVisualStyleBackColor = true;
+            ButtonSaveDataBase.Click += ButtonSaveDataBase_Click;
             // 
             // ButtonDeleteDataBase
             // 
@@ -142,16 +143,16 @@
             buttonRedactDocument.TabIndex = 1;
             buttonRedactDocument.Text = "Редактировать документ";
             buttonRedactDocument.UseVisualStyleBackColor = true;
-            buttonRedactDocument.Click += buttonRedactDocument_Click;
+            buttonRedactDocument.Click += ButtonRedactDocument_Click;
             // 
-            // TextBox
+            // TextBoxContent
             // 
-            TextBox.Location = new Point(598, 391);
-            TextBox.Multiline = true;
-            TextBox.Name = "TextBox";
-            TextBox.ScrollBars = ScrollBars.Vertical;
-            TextBox.Size = new Size(380, 152);
-            TextBox.TabIndex = 4;
+            TextBoxContent.Location = new Point(598, 391);
+            TextBoxContent.Multiline = true;
+            TextBoxContent.Name = "TextBoxContent";
+            TextBoxContent.ScrollBars = ScrollBars.Vertical;
+            TextBoxContent.Size = new Size(380, 152);
+            TextBoxContent.TabIndex = 4;
             // 
             // label1
             // 
@@ -174,12 +175,12 @@
             ButtonSEarchDocument.TabIndex = 3;
             ButtonSEarchDocument.UseVisualStyleBackColor = true;
             // 
-            // textBox1
+            // TextBoxTitle
             // 
-            textBox1.Location = new Point(598, 28);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(380, 23);
-            textBox1.TabIndex = 6;
+            TextBoxTitle.Location = new Point(598, 28);
+            TextBoxTitle.Name = "TextBoxTitle";
+            TextBoxTitle.Size = new Size(380, 23);
+            TextBoxTitle.TabIndex = 6;
             // 
             // label2
             // 
@@ -196,10 +197,10 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1045, 552);
-            Controls.Add(textBox1);
+            Controls.Add(TextBoxTitle);
             Controls.Add(label2);
             Controls.Add(label1);
-            Controls.Add(TextBox);
+            Controls.Add(TextBoxContent);
             Controls.Add(ButtonSEarchDocument);
             Controls.Add(ButtonFilterDataBase);
             Controls.Add(ButtonExit);
@@ -230,10 +231,10 @@
         private Button ButtonAddDocument;
         private Button ButtonDelete;
         private Button buttonRedactDocument;
-        private TextBox TextBox;
+        private TextBox TextBoxContent;
         private Label label1;
         private Button ButtonSEarchDocument;
-        private TextBox textBox1;
+        private TextBox TextBoxTitle;
         private Label label2;
     }
 }

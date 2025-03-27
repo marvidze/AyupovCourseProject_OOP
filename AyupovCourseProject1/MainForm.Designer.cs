@@ -43,6 +43,7 @@
             ButtonSEarchDocument = new Button();
             TextBoxSearch = new TextBox();
             label2 = new Label();
+            buttonRestFilter = new Button();
             ((System.ComponentModel.ISupportInitialize)DataGridView).BeginInit();
             SuspendLayout();
             // 
@@ -193,6 +194,17 @@
             label2.TabIndex = 5;
             label2.Text = "Поиск документа по заголовку:";
             // 
+            // buttonRestFilter
+            // 
+            buttonRestFilter.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            buttonRestFilter.Location = new Point(210, 12);
+            buttonRestFilter.Name = "buttonRestFilter";
+            buttonRestFilter.Size = new Size(188, 48);
+            buttonRestFilter.TabIndex = 3;
+            buttonRestFilter.Text = "Отменить фильтрацию";
+            buttonRestFilter.UseVisualStyleBackColor = true;
+            buttonRestFilter.Click += ButtonRestFilter_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -203,6 +215,7 @@
             Controls.Add(label1);
             Controls.Add(TextBoxContent);
             Controls.Add(ButtonSEarchDocument);
+            Controls.Add(buttonRestFilter);
             Controls.Add(ButtonFilterDataBase);
             Controls.Add(ButtonExit);
             Controls.Add(ButtonDeleteDataBase);
@@ -237,5 +250,6 @@
         private Button ButtonSEarchDocument;
         private TextBox TextBoxSearch;
         private Label label2;
+        private Button buttonRestFilter;
     }
 }

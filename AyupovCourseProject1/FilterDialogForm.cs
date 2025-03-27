@@ -12,6 +12,8 @@ namespace AyupovCourseProject1
 {
     public partial class FilterDialogForm: Form
     {
+        public DateTime startDate;
+        public DateTime endTime;
         public FilterDialogForm()
         {
             InitializeComponent();
@@ -25,6 +27,13 @@ namespace AyupovCourseProject1
 
         private void ButtonConfirm_Click(object sender, EventArgs e)
         {
+            startDate = dateTimePickerFrom.Value;
+            endTime = dateTimePickerTo.Value;
+            if (startDate > endTime)
+            {
+                MessageBox.Show("Дата 'от' не может быть больше даты 'до'");
+                return;
+            }
             this.DialogResult = DialogResult.OK;
             Close();
         }

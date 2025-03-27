@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,14 +10,15 @@ namespace AyupovCourseProject1
 {
     public class MyDocument
     {
-        public int ID { get; private set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int ID { get; set; }
         public string SenderName { get; set; } = "Отсутствует значение";
         public string DocumentTitle { get; set; } = "Отсутствует значение";
         public DateTime ReceiptDate { get; set; } = DateTime.Now;
         public string DocumentTopic { get; set; } = "Созданный по умолчанию документ";
         public string DocumentContent { get; set; } = "";
-        public static int CountOfElements { get; set; } = 0;
 
+        
         /// <summary>
         /// Конструктор по умолчанию класса MyDocument
         /// </summary>
@@ -31,8 +34,6 @@ namespace AyupovCourseProject1
         /// <param name="documentContetnt">Содержание документа</param>
         public MyDocument(string senderName, string documentTitle, DateTime receiptDate, string documentTopic, string documentContetnt)
         {
-            CountOfElements += 1;
-            ID = CountOfElements;
             SenderName = senderName;
             DocumentTitle = documentTitle;
             ReceiptDate = receiptDate;

@@ -119,6 +119,8 @@ namespace AyupovCourseProject1
         /// <param name="documentContent">Содержание документа</param>
         public void CreateDocument(string senderName, string documentTitle, DateTime receiptDate, string documentTopic, string documentContent)
         {
+            int Id;
+            var rnd = new Random();
             MyDocument document = new MyDocument(senderName, documentTitle, receiptDate, documentTopic, documentContent);
             context.Documents.Add(document);
             context.SaveChanges();
@@ -132,8 +134,14 @@ namespace AyupovCourseProject1
         {
             MyDocument document = context.Documents.Find(documentId);
             context.Documents.Remove(document);
-            MyDocument.CountOfElements = MyDocument.CountOfElements - 1;
             context.SaveChanges();
+        }
+
+        public List<MyDocument> GetDocumentsByDate(DateTime startDate, DateTime endDate)
+        {
+            return context.Documents
+                .Where(d => d.ReceiptDate >= startDate && d.ReceiptDate <= endDate)
+                .ToList();
         }
 
         /// <summary>

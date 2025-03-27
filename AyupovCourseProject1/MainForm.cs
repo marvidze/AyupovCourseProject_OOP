@@ -32,6 +32,14 @@ namespace AyupovCourseProject1
         {
             FilterDialogForm filterForm = new FilterDialogForm();
             DialogResult result = filterForm.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                DataGridView.DataSource = DatabaseService.GetDocumentsByDate(filterForm.startDate, filterForm.endTime);
+            }
+            else
+            {
+                MessageBox.Show("Фильтрация отменена");
+            }
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -101,7 +109,6 @@ namespace AyupovCourseProject1
 
                     LoadDataIntoGridView();
 
-                    MessageBox.Show("База данных успешно загружена!", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (Exception ex)
                 {
@@ -267,6 +274,10 @@ namespace AyupovCourseProject1
 
             DataGridView.DataSource = filteredDocuments;
         }
-        
+
+        private void ButtonRestFilter_Click(object sender, EventArgs e)
+        {
+            LoadDataIntoGridView();
+        }
     }
 }

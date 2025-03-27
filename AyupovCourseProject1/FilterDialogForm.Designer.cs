@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             label1 = new Label();
-            dateTimePicker1 = new DateTimePicker();
-            dateTimePicker2 = new DateTimePicker();
+            dateTimePickerFrom = new DateTimePicker();
+            dateTimePickerTo = new DateTimePicker();
             label2 = new Label();
             label3 = new Label();
             ButtonConfirm = new Button();
@@ -47,19 +47,19 @@
             label1.TabIndex = 1;
             label1.Text = "Введите нужные даты:";
             // 
-            // dateTimePicker1
+            // dateTimePickerFrom
             // 
-            dateTimePicker1.Location = new Point(12, 62);
-            dateTimePicker1.Name = "dateTimePicker1";
-            dateTimePicker1.Size = new Size(209, 23);
-            dateTimePicker1.TabIndex = 2;
+            dateTimePickerFrom.Location = new Point(12, 62);
+            dateTimePickerFrom.Name = "dateTimePickerFrom";
+            dateTimePickerFrom.Size = new Size(209, 23);
+            dateTimePickerFrom.TabIndex = 2;
             // 
-            // dateTimePicker2
+            // dateTimePickerTo
             // 
-            dateTimePicker2.Location = new Point(12, 117);
-            dateTimePicker2.Name = "dateTimePicker2";
-            dateTimePicker2.Size = new Size(209, 23);
-            dateTimePicker2.TabIndex = 2;
+            dateTimePickerTo.Location = new Point(12, 117);
+            dateTimePickerTo.Name = "dateTimePickerTo";
+            dateTimePickerTo.Size = new Size(209, 23);
+            dateTimePickerTo.TabIndex = 2;
             // 
             // label2
             // 
@@ -92,7 +92,7 @@
             ButtonConfirm.TabIndex = 4;
             ButtonConfirm.Text = "Применить";
             ButtonConfirm.UseVisualStyleBackColor = true;
-            ButtonConfirm.Click += this.ButtonConfirm_Click;
+            ButtonConfirm.Click += ButtonConfirm_Click;
             // 
             // ButtonClose
             // 
@@ -112,8 +112,8 @@
             ClientSize = new Size(312, 298);
             Controls.Add(ButtonClose);
             Controls.Add(ButtonConfirm);
-            Controls.Add(dateTimePicker2);
-            Controls.Add(dateTimePicker1);
+            Controls.Add(dateTimePickerTo);
+            Controls.Add(dateTimePickerFrom);
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
@@ -127,8 +127,8 @@
         #endregion
 
         private Label label1;
-        private DateTimePicker dateTimePicker1;
-        private DateTimePicker dateTimePicker2;
+        private DateTimePicker dateTimePickerFrom;
+        private DateTimePicker dateTimePickerTo;
         private Label label2;
         private Label label3;
         private Button ButtonConfirm;

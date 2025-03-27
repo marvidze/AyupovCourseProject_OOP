@@ -10,8 +10,8 @@ namespace AyupovCourseProject1
     {
 
         public static DatabaseService DatabaseService { get; private set; } = null!;
-        private string CurrentDbPath { get ; set; }
-        
+        private string CurrentDbPath { get; set; }
+
         public MainForm()
         {
             InitializeComponent();
@@ -111,20 +111,24 @@ namespace AyupovCourseProject1
 
         }
 
-        private void DeleteDatabase(string dbPath) {
+        private void DeleteDatabase(string dbPath)
+        {
             DialogResult dialogResult = MessageBox.Show(
                 "Вы уверены, что хотите удалить базу данных? Это действие нельзя отменить.",
                 "Подтверждение удаления",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Warning);
-            if (dialogResult == DialogResult.Yes) {
-                try {
+            if (dialogResult == DialogResult.Yes)
+            {
+                try
+                {
                     DatabaseService?.Dispose();
                     DatabaseService = null;
                     File.Delete(dbPath);
                     MessageBox.Show("База данных успешно удалена.", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                catch (Exception ex) {
+                catch (Exception ex)
+                {
                     MessageBox.Show($"Ошибка при удалении базы данных: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
@@ -133,8 +137,6 @@ namespace AyupovCourseProject1
         private void LoadDataIntoGridView()
         {
             var documents = DatabaseService.GetDocuments();
-
-            // Привязываем данные к DataGridView
             DataGridView.DataSource = documents;
         }
 
@@ -153,9 +155,9 @@ namespace AyupovCourseProject1
         }
         private void DeleteDocument(int documentId)
         {
-            DatabaseService.DeleteDocument(documentId);   
+            DatabaseService.DeleteDocument(documentId);
         }
-        
+
 
         private void ButtonAddDocument_Click(object sender, EventArgs e)
         {
@@ -172,7 +174,7 @@ namespace AyupovCourseProject1
         {
             if (DataGridView.SelectedRows.Count > 0)
             {
-                
+
                 int documentId = (int)DataGridView.SelectedRows[0].Cells["Id"].Value;
 
                 RedactDocumentForm redactDocumentForm = new RedactDocumentForm(documentId, CurrentDbPath);
@@ -223,7 +225,7 @@ namespace AyupovCourseProject1
         private void CreateNewDatabase()
         {
             SaveFileDialog saveFileDialog = new()
-            { 
+            {
                 Filter = "SQLite Database Files (*.db)|*.db",
                 Title = "Создать новую базу данных"
             };
@@ -257,5 +259,14 @@ namespace AyupovCourseProject1
 
         }
 
+        private void ButtonSEarchDocument_Click(object sender, EventArgs e)
+        {
+            string searchText = TextBoxSearch.Text;
+
+            var filteredDocuments = DatabaseService.SearchDocumentsByTitle(searchText);
+
+            DataGridView.DataSource = filteredDocuments;
+        }
+        
     }
 }

@@ -19,11 +19,7 @@ namespace AyupovCourseProject1
         /// <summary>
         /// Конструктор по умолчанию класса MyDocument
         /// </summary>
-        public MyDocument()
-        {
-            CountOfElements++;
-            ID = CountOfElements;
-        }
+        public MyDocument() { }
 
         /// <summary>
         /// Конструктор с параметрами класса MyDocument
@@ -33,8 +29,10 @@ namespace AyupovCourseProject1
         /// <param name="receiptDate">Дата созания документа</param>
         /// <param name="documentTopic">Тема документа</param>
         /// <param name="documentContetnt">Содержание документа</param>
-        public MyDocument(string senderName, string documentTitle, DateTime receiptDate, string documentTopic, string documentContetnt) : this()
+        public MyDocument(string senderName, string documentTitle, DateTime receiptDate, string documentTopic, string documentContetnt)
         {
+            CountOfElements += 1;
+            ID = CountOfElements;
             SenderName = senderName;
             DocumentTitle = documentTitle;
             ReceiptDate = receiptDate;

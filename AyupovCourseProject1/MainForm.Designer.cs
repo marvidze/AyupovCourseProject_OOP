@@ -41,7 +41,7 @@
             TextBoxContent = new TextBox();
             label1 = new Label();
             ButtonSEarchDocument = new Button();
-            TextBoxTitle = new TextBox();
+            TextBoxSearch = new TextBox();
             label2 = new Label();
             ((System.ComponentModel.ISupportInitialize)DataGridView).BeginInit();
             SuspendLayout();
@@ -174,13 +174,14 @@
             ButtonSEarchDocument.Size = new Size(50, 48);
             ButtonSEarchDocument.TabIndex = 3;
             ButtonSEarchDocument.UseVisualStyleBackColor = true;
+            ButtonSEarchDocument.Click += ButtonSEarchDocument_Click;
             // 
-            // TextBoxTitle
+            // TextBoxSearch
             // 
-            TextBoxTitle.Location = new Point(598, 28);
-            TextBoxTitle.Name = "TextBoxTitle";
-            TextBoxTitle.Size = new Size(380, 23);
-            TextBoxTitle.TabIndex = 6;
+            TextBoxSearch.Location = new Point(598, 28);
+            TextBoxSearch.Name = "TextBoxSearch";
+            TextBoxSearch.Size = new Size(380, 23);
+            TextBoxSearch.TabIndex = 6;
             // 
             // label2
             // 
@@ -197,7 +198,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1045, 552);
-            Controls.Add(TextBoxTitle);
+            Controls.Add(TextBoxSearch);
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(TextBoxContent);
@@ -234,7 +235,7 @@
         private TextBox TextBoxContent;
         private Label label1;
         private Button ButtonSEarchDocument;
-        private TextBox TextBoxTitle;
+        private TextBox TextBoxSearch;
         private Label label2;
     }
 }

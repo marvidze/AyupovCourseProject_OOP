@@ -12,9 +12,7 @@ namespace AyupovCourseProject1
 {
     public partial class CreateDocumentForm : Form
     {
-        private MyDocument document;
         private DatabaseService databaseService;
-        private int documentId;
 
         public CreateDocumentForm() => InitializeComponent();
 
@@ -40,21 +38,25 @@ namespace AyupovCourseProject1
         {
             InitializeComponent();
             databaseService = new DatabaseService(currentDbPath);
-            document = databaseService.FindDocumentById(documentId);
         }
 
         private void CreateDocumentForm_Load(object sender, EventArgs e)
         {
-            textBox_name.Text = "Введите имя...";
-            textBox_title.Text = "Введите заголовок...";
-            textBox_topic.Text = "Введите тему...";
-            textBox_content.Text = "Введите содержание...";
+            textBox_name.Text = "Иванов Иван Иванович";
+            textBox_title.Text = "Заголовок";
+            textBox_topic.Text = "Тема";
+            textBox_content.Text = "Содержание";
         }
 
         private void button_closeForm_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.No;
             this.Close();
+        }
+
+        private void textBox_name_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

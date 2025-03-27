@@ -5,6 +5,7 @@ using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using System.ComponentModel;
 
 namespace AyupovCourseProject1
 {
@@ -69,11 +70,34 @@ namespace AyupovCourseProject1
 
         }
 
+        /// <summary>
+        /// Поиск документа по ID
+        /// </summary>
+        /// <param name="documentId">ID документа</param>
+        /// <returns></returns>
         public MyDocument FindDocumentById(int documentId)
         {
+            //IQueryable i = context.Documents.Select(x => x.ID == documentId);
             return context.Documents.Find(documentId);
         }
 
+        public BindingList<MyDocument> SearchDocumentsByTitle(string title)
+{
+            var filteredDocuments = context.Documents.ToList()
+                .Where(d => d.DocumentTitle.Contains(title, StringComparison.OrdinalIgnoreCase)).ToList();
+                
+
+            return new BindingList<MyDocument>(filteredDocuments);
+        }
+
+        /// <summary>
+        /// Редактирование документа
+        /// </summary>
+        /// <param name="documentId">ID документа</param>
+        /// <param name="senderName">Имя отправителя</param>
+        /// <param name="documentTitle">Заголовок документа</param>
+        /// <param name="documentTopic">Тема документа</param>
+        /// <param name="documentContent">Содержание документа</param>
         public void RedactDocument(int documentId, string senderName, string documentTitle, string documentTopic, string documentContent)
         {
             MyDocument document = FindDocumentById(documentId);
@@ -85,6 +109,14 @@ namespace AyupovCourseProject1
             context.SaveChanges();
         }
 
+        /// <summary>
+        /// Создание документа
+        /// </summary>
+        /// <param name="senderName">Имя отправителя</param>
+        /// <param name="documentTitle">Заголовок документа</param>
+        /// <param name="receiptDate">Дата создания</param>
+        /// <param name="documentTopic">Тема документа</param>
+        /// <param name="documentContent">Содержание документа</param>
         public void CreateDocument(string senderName, string documentTitle, DateTime receiptDate, string documentTopic, string documentContent)
         {
             MyDocument document = new MyDocument(senderName, documentTitle, receiptDate, documentTopic, documentContent);
@@ -92,6 +124,10 @@ namespace AyupovCourseProject1
             context.SaveChanges();
         }
 
+        /// <summary>
+        /// Удаление документа
+        /// </summary>
+        /// <param name="documentId">ID документа</param>
         public void DeleteDocument(int documentId)
         {
             MyDocument document = context.Documents.Find(documentId);
@@ -104,11 +140,10 @@ namespace AyupovCourseProject1
         /// Получение таблицы базы данных в виде списка
         /// </summary>
         /// <returns>Таблица базы данных в виде списка</returns>
-        public List<MyDocument> GetDocuments()
+        public BindingList<MyDocument> GetDocuments()
         {
-            
-            
-                return context.Documents.ToList();
+            var documents = context.Documents.ToList();
+            return new BindingList<MyDocument>(documents);
             
         }
 

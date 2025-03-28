@@ -280,38 +280,36 @@ namespace AyupovCourseProject1
 
         private void ButtonSaveDataBase_Click(object sender, EventArgs e)
         {
-            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+            SaveFileDialog saveFileDialog = new()
             {
-                saveFileDialog.Title = "Выберите место сохранения базы данных";
-                saveFileDialog.Filter = "SQLite Database (*.sqlite, *.db, *.sqlite3)|*.sqlite;*.db;*.sqlite3|Все файлы (*.*)|*.*";
-                saveFileDialog.DefaultExt = ".sqlite";
-                saveFileDialog.AddExtension = true;
+                Title = "Выберите место сохранения базы данных",
+                Filter = "SQLite Database (*.sqlite, *.db, *.sqlite3)|*.sqlite;*.db;*.sqlite3|Все файлы (*.*)|*.*",
+                DefaultExt = ".sqlite",
+                AddExtension = true,
+            };
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string destinationPath = saveFileDialog.FileName;
 
-                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                try
                 {
-                    string destinationPath = saveFileDialog.FileName;
-
-                    try
+                    if (File.Exists(CurrentDbPath))
                     {
-                        string currentDatabasePath =  CurrentDbPath; 
-
-                        if (File.Exists(currentDatabasePath))
-                        {
-                            File.Copy(currentDatabasePath, destinationPath, overwrite: true);
-                            MessageBox.Show($"База данных успешно сохранена в:\n{destinationPath}", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                        else
-                        {
-                            MessageBox.Show("Ошибка: исходная база данных не найдена!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
+                        File.Copy(CurrentDbPath, destinationPath, overwrite: true);
+                        MessageBox.Show($"База данных успешно сохранена в:\n{destinationPath}", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
-                    catch (Exception ex)
+                    else
                     {
-                        MessageBox.Show($"Ошибка при сохранении базы данных:\n{ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Ошибка: исходная база данных не найдена!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ошибка при сохранении базы данных:\n{ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
+
 
         private void ButtonSEarchDocument_Click(object sender, EventArgs e)
         {

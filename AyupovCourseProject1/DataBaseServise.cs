@@ -148,10 +148,10 @@ namespace AyupovCourseProject1
         /// Получение таблицы базы данных в виде списка
         /// </summary>
         /// <returns>Таблица базы данных в виде списка</returns>
-        public BindingList<MyDocument> GetDocuments()
+        public List<MyDocument> GetDocuments()
         {
             var documents = context.Documents.ToList();
-            return new BindingList<MyDocument>(documents);
+            return new List<MyDocument>(documents);
             
         }
 

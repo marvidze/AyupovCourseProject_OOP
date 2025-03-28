@@ -22,12 +22,6 @@ namespace AyupovCourseProject1
             Close();
         }
 
-        private void ButtonSortDataBase_Click(object sender, EventArgs e)
-        {
-            RedactDocumentForm sortForm = new RedactDocumentForm();
-            DialogResult result = sortForm.ShowDialog();
-        }
-
         private void ButtonFilterDataBase_Click(object sender, EventArgs e)
         {
             FilterDialogForm filterForm = new FilterDialogForm();
@@ -87,7 +81,7 @@ namespace AyupovCourseProject1
             if (DataGridView.SelectedRows.Count > 0)
             {
                 DataGridViewRow selectedRow = DataGridView.SelectedRows[0];
-                string? documentContent = selectedRow.Cells["DocumentContent"].Value.ToString();
+                string? documentContent = selectedRow.Cells["Содержание"].Value.ToString();
                 TextBoxContent.Text = documentContent;
             }
         }
@@ -106,6 +100,8 @@ namespace AyupovCourseProject1
                     string selectedDbPath = openFileDialog.FileName;
 
                     DatabaseService = new DatabaseService(selectedDbPath);
+                    CurrentDbPath = selectedDbPath;
+                    labelDBPath.Text = CurrentDbPath;
 
                     LoadDataIntoGridView();
 
@@ -144,7 +140,26 @@ namespace AyupovCourseProject1
         private void LoadDataIntoGridView()
         {
             var documents = DatabaseService.GetDocuments();
-            DataGridView.DataSource = documents;
+            DataGridView.DataSource = ConvertToDataTable(documents);
+        }
+
+        private DataTable ConvertToDataTable(List<MyDocument> documents)
+        {
+            DataTable table = new DataTable();
+
+            table.Columns.Add("ID", typeof(int));
+            table.Columns.Add("Имя отправителя", typeof(string));
+            table.Columns.Add("Заголовок", typeof(string));
+            table.Columns.Add("Дата создания", typeof(DateTime));
+            table.Columns.Add("Тема", typeof(string));
+            table.Columns.Add("Содержание", typeof(string));
+
+            foreach (var doc in documents)
+            {
+                table.Rows.Add(doc.ID, doc.SenderName, doc.DocumentTitle, doc.ReceiptDate, doc.DocumentTopic, doc.DocumentContent);
+            }
+
+            return table;
         }
 
         private void ButtonDeleteDataBase_Click(object sender, EventArgs e)
@@ -211,6 +226,7 @@ namespace AyupovCourseProject1
                 try
                 {
                     CurrentDbPath = openFileDialog.FileName;
+                    labelDBPath.Text = CurrentDbPath;
                     DatabaseService = new DatabaseService(CurrentDbPath);
                     LoadDataIntoGridView();
                     MessageBox.Show("База данных успешно загружена!", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -242,6 +258,7 @@ namespace AyupovCourseProject1
                 try
                 {
                     CurrentDbPath = saveFileDialog.FileName;
+                    labelDBPath.Text = CurrentDbPath;
                     DatabaseService = new DatabaseService(CurrentDbPath);
                     DatabaseService.CreateNewDatabase(CurrentDbPath);
                     DataGridView.DataSource = null;
@@ -263,7 +280,37 @@ namespace AyupovCourseProject1
 
         private void ButtonSaveDataBase_Click(object sender, EventArgs e)
         {
+            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.Title = "Выберите место сохранения базы данных";
+                saveFileDialog.Filter = "SQLite Database (*.sqlite, *.db, *.sqlite3)|*.sqlite;*.db;*.sqlite3|Все файлы (*.*)|*.*";
+                saveFileDialog.DefaultExt = ".sqlite";
+                saveFileDialog.AddExtension = true;
 
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string destinationPath = saveFileDialog.FileName;
+
+                    try
+                    {
+                        string currentDatabasePath =  CurrentDbPath; 
+
+                        if (File.Exists(currentDatabasePath))
+                        {
+                            File.Copy(currentDatabasePath, destinationPath, overwrite: true);
+                            MessageBox.Show($"База данных успешно сохранена в:\n{destinationPath}", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Ошибка: исходная база данных не найдена!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Ошибка при сохранении базы данных:\n{ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
         }
 
         private void ButtonSEarchDocument_Click(object sender, EventArgs e)

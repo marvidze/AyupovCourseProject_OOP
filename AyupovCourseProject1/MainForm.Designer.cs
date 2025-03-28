@@ -44,6 +44,8 @@
             TextBoxSearch = new TextBox();
             label2 = new Label();
             buttonRestFilter = new Button();
+            label3 = new Label();
+            labelDBPath = new Label();
             ((System.ComponentModel.ISupportInitialize)DataGridView).BeginInit();
             SuspendLayout();
             // 
@@ -51,16 +53,16 @@
             // 
             DataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             DataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            DataGridView.Location = new Point(16, 66);
+            DataGridView.Location = new Point(16, 79);
             DataGridView.Name = "DataGridView";
-            DataGridView.Size = new Size(1018, 295);
+            DataGridView.Size = new Size(1018, 282);
             DataGridView.TabIndex = 0;
             DataGridView.SelectionChanged += DataGridView_SelectionChanged;
             // 
             // ButtonLoadDataBase
             // 
             ButtonLoadDataBase.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            ButtonLoadDataBase.Location = new Point(210, 485);
+            ButtonLoadDataBase.Location = new Point(404, 488);
             ButtonLoadDataBase.Name = "ButtonLoadDataBase";
             ButtonLoadDataBase.Size = new Size(188, 55);
             ButtonLoadDataBase.TabIndex = 1;
@@ -82,12 +84,13 @@
             // ButtonDeleteDataBase
             // 
             ButtonDeleteDataBase.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            ButtonDeleteDataBase.Location = new Point(404, 485);
+            ButtonDeleteDataBase.Location = new Point(404, 488);
             ButtonDeleteDataBase.Name = "ButtonDeleteDataBase";
             ButtonDeleteDataBase.Size = new Size(188, 55);
             ButtonDeleteDataBase.TabIndex = 1;
             ButtonDeleteDataBase.Text = "Удалить базу данных";
             ButtonDeleteDataBase.UseVisualStyleBackColor = true;
+            ButtonDeleteDataBase.Visible = false;
             ButtonDeleteDataBase.Click += ButtonDeleteDataBase_Click;
             // 
             // ButtonExit
@@ -105,7 +108,7 @@
             // ButtonFilterDataBase
             // 
             ButtonFilterDataBase.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            ButtonFilterDataBase.Location = new Point(16, 12);
+            ButtonFilterDataBase.Location = new Point(16, 25);
             ButtonFilterDataBase.Name = "ButtonFilterDataBase";
             ButtonFilterDataBase.Size = new Size(188, 48);
             ButtonFilterDataBase.TabIndex = 3;
@@ -170,7 +173,7 @@
             ButtonSEarchDocument.BackgroundImage = (Image)resources.GetObject("ButtonSEarchDocument.BackgroundImage");
             ButtonSEarchDocument.BackgroundImageLayout = ImageLayout.Zoom;
             ButtonSEarchDocument.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            ButtonSEarchDocument.Location = new Point(984, 12);
+            ButtonSEarchDocument.Location = new Point(984, 25);
             ButtonSEarchDocument.Name = "ButtonSEarchDocument";
             ButtonSEarchDocument.Size = new Size(50, 48);
             ButtonSEarchDocument.TabIndex = 3;
@@ -179,7 +182,7 @@
             // 
             // TextBoxSearch
             // 
-            TextBoxSearch.Location = new Point(598, 28);
+            TextBoxSearch.Location = new Point(598, 50);
             TextBoxSearch.Name = "TextBoxSearch";
             TextBoxSearch.Size = new Size(380, 23);
             TextBoxSearch.TabIndex = 6;
@@ -188,7 +191,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            label2.Location = new Point(598, 4);
+            label2.Location = new Point(598, 25);
             label2.Name = "label2";
             label2.Size = new Size(235, 21);
             label2.TabIndex = 5;
@@ -197,7 +200,7 @@
             // buttonRestFilter
             // 
             buttonRestFilter.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            buttonRestFilter.Location = new Point(210, 12);
+            buttonRestFilter.Location = new Point(210, 25);
             buttonRestFilter.Name = "buttonRestFilter";
             buttonRestFilter.Size = new Size(188, 48);
             buttonRestFilter.TabIndex = 3;
@@ -205,11 +208,32 @@
             buttonRestFilter.UseVisualStyleBackColor = true;
             buttonRestFilter.Click += ButtonRestFilter_Click;
             // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            label3.Location = new Point(16, 1);
+            label3.Name = "label3";
+            label3.Size = new Size(148, 21);
+            label3.TabIndex = 7;
+            label3.Text = "Путь открытой БД: ";
+            // 
+            // labelDBPath
+            // 
+            labelDBPath.AutoSize = true;
+            labelDBPath.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            labelDBPath.Location = new Point(170, 1);
+            labelDBPath.Name = "labelDBPath";
+            labelDBPath.Size = new Size(0, 21);
+            labelDBPath.TabIndex = 8;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1045, 552);
+            Controls.Add(labelDBPath);
+            Controls.Add(label3);
             Controls.Add(TextBoxSearch);
             Controls.Add(label2);
             Controls.Add(label1);
@@ -251,5 +275,7 @@
         private TextBox TextBoxSearch;
         private Label label2;
         private Button buttonRestFilter;
+        private Label label3;
+        private Label labelDBPath;
     }
 }

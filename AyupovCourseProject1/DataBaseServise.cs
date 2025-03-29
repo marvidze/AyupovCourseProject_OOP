@@ -81,13 +81,18 @@ namespace AyupovCourseProject1
             return context.Documents.Find(documentId);
         }
 
-        public BindingList<MyDocument> SearchDocumentsByTitle(string title)
-{
-            var filteredDocuments = context.Documents.ToList()
-                .Where(d => d.DocumentTitle.Contains(title, StringComparison.OrdinalIgnoreCase)).ToList();
-                
+        public int GetCountOfDocuments()
+        {
+            return context.Documents.Count();
+        }
 
-            return new BindingList<MyDocument>(filteredDocuments);
+        public (List<MyDocument>, int) SearchDocumentsByTitle(string title)
+        { 
+            var resultList = context.Documents.ToList()
+                .Where(d => d.DocumentTitle.Contains(title, StringComparison.OrdinalIgnoreCase)).ToList();
+
+            int countOfElems = resultList.Count();
+            return (resultList, countOfElems);
         }
 
         /// <summary>
@@ -137,11 +142,11 @@ namespace AyupovCourseProject1
             context.SaveChanges();
         }
 
-        public List<MyDocument> GetDocumentsByDate(DateTime startDate, DateTime endDate)
+        public (List<MyDocument>, int) GetDocumentsByDate(DateTime startDate, DateTime endDate)
         {
-            return context.Documents
-                .Where(d => d.ReceiptDate >= startDate && d.ReceiptDate <= endDate)
-                .ToList();
+            List<MyDocument> resultList = [.. context.Documents.Where(d => d.ReceiptDate >= startDate && d.ReceiptDate <= endDate)];
+            int countOfElems = resultList.Count();
+            return (resultList, countOfElems);
         }
 
         /// <summary>

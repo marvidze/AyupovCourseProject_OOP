@@ -28,7 +28,9 @@ namespace AyupovCourseProject1
             DialogResult result = filterForm.ShowDialog();
             if (result == DialogResult.OK)
             {
-                DataGridView.DataSource = DatabaseService.GetDocumentsByDate(filterForm.startDate, filterForm.endTime);
+                (List<MyDocument>, int) pair = DatabaseService.GetDocumentsByDate(filterForm.startDate, filterForm.endTime);
+                DataGridView.DataSource = pair.Item1;
+                labelCountOfElements.Text = pair.Item2 + " из " + DatabaseService.GetCountOfDocuments();
             }
             else
             {
@@ -141,6 +143,7 @@ namespace AyupovCourseProject1
         {
             var documents = DatabaseService.GetDocuments();
             DataGridView.DataSource = ConvertToDataTable(documents);
+            labelCountOfElements.Text = DataGridView?.Rows.Count-1 + " из " + DatabaseService.GetCountOfDocuments();
         }
 
         private DataTable ConvertToDataTable(List<MyDocument> documents)
@@ -314,10 +317,12 @@ namespace AyupovCourseProject1
         private void ButtonSEarchDocument_Click(object sender, EventArgs e)
         {
             string searchText = TextBoxSearch.Text;
-
-            var filteredDocuments = DatabaseService.SearchDocumentsByTitle(searchText);
+            (List<MyDocument>, int) pair = DatabaseService.SearchDocumentsByTitle(searchText);
+            List<MyDocument> filteredDocuments = pair.Item1;
+            int countOfElements = pair.Item2;
 
             DataGridView.DataSource = filteredDocuments;
+            labelCountOfElements.Text = countOfElements + " из " + DatabaseService.GetCountOfDocuments();
         }
 
         private void ButtonRestFilter_Click(object sender, EventArgs e)

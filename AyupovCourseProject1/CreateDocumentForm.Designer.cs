@@ -149,6 +149,7 @@
             Controls.Add(label2);
             Controls.Add(label1);
             Name = "CreateDocumentForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Создание документа";
             Load += CreateDocumentForm_Load;
             ResumeLayout(false);

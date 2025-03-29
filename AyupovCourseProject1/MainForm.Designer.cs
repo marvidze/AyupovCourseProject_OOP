@@ -32,7 +32,6 @@
             DataGridView = new DataGridView();
             ButtonLoadDataBase = new Button();
             ButtonSaveDataBase = new Button();
-            ButtonDeleteDataBase = new Button();
             ButtonExit = new Button();
             ButtonFilterDataBase = new Button();
             ButtonAddDocument = new Button();
@@ -46,23 +45,28 @@
             buttonRestFilter = new Button();
             label3 = new Label();
             labelDBPath = new Label();
+            label4 = new Label();
+            labelCountOfElements = new Label();
             ((System.ComponentModel.ISupportInitialize)DataGridView).BeginInit();
             SuspendLayout();
             // 
             // DataGridView
             // 
+            DataGridView.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             DataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             DataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             DataGridView.Location = new Point(16, 79);
             DataGridView.Name = "DataGridView";
-            DataGridView.Size = new Size(1018, 282);
+            DataGridView.ReadOnly = true;
+            DataGridView.Size = new Size(1133, 282);
             DataGridView.TabIndex = 0;
             DataGridView.SelectionChanged += DataGridView_SelectionChanged;
             // 
             // ButtonLoadDataBase
             // 
+            ButtonLoadDataBase.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             ButtonLoadDataBase.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            ButtonLoadDataBase.Location = new Point(404, 488);
+            ButtonLoadDataBase.Location = new Point(404, 485);
             ButtonLoadDataBase.Name = "ButtonLoadDataBase";
             ButtonLoadDataBase.Size = new Size(188, 55);
             ButtonLoadDataBase.TabIndex = 1;
@@ -72,6 +76,7 @@
             // 
             // ButtonSaveDataBase
             // 
+            ButtonSaveDataBase.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             ButtonSaveDataBase.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
             ButtonSaveDataBase.Location = new Point(16, 485);
             ButtonSaveDataBase.Name = "ButtonSaveDataBase";
@@ -81,24 +86,13 @@
             ButtonSaveDataBase.UseVisualStyleBackColor = true;
             ButtonSaveDataBase.Click += ButtonSaveDataBase_Click;
             // 
-            // ButtonDeleteDataBase
-            // 
-            ButtonDeleteDataBase.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            ButtonDeleteDataBase.Location = new Point(404, 488);
-            ButtonDeleteDataBase.Name = "ButtonDeleteDataBase";
-            ButtonDeleteDataBase.Size = new Size(188, 55);
-            ButtonDeleteDataBase.TabIndex = 1;
-            ButtonDeleteDataBase.Text = "Удалить базу данных";
-            ButtonDeleteDataBase.UseVisualStyleBackColor = true;
-            ButtonDeleteDataBase.Visible = false;
-            ButtonDeleteDataBase.Click += ButtonDeleteDataBase_Click;
-            // 
             // ButtonExit
             // 
+            ButtonExit.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             ButtonExit.BackgroundImage = (Image)resources.GetObject("ButtonExit.BackgroundImage");
             ButtonExit.BackgroundImageLayout = ImageLayout.Zoom;
             ButtonExit.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            ButtonExit.Location = new Point(984, 485);
+            ButtonExit.Location = new Point(1099, 488);
             ButtonExit.Name = "ButtonExit";
             ButtonExit.Size = new Size(50, 55);
             ButtonExit.TabIndex = 1;
@@ -118,6 +112,7 @@
             // 
             // ButtonAddDocument
             // 
+            ButtonAddDocument.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             ButtonAddDocument.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
             ButtonAddDocument.Location = new Point(210, 367);
             ButtonAddDocument.Name = "ButtonAddDocument";
@@ -129,6 +124,7 @@
             // 
             // ButtonDelete
             // 
+            ButtonDelete.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             ButtonDelete.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
             ButtonDelete.Location = new Point(404, 367);
             ButtonDelete.Name = "ButtonDelete";
@@ -140,6 +136,7 @@
             // 
             // buttonRedactDocument
             // 
+            buttonRedactDocument.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             buttonRedactDocument.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
             buttonRedactDocument.Location = new Point(16, 367);
             buttonRedactDocument.Name = "buttonRedactDocument";
@@ -151,15 +148,21 @@
             // 
             // TextBoxContent
             // 
+            TextBoxContent.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            TextBoxContent.ImeMode = ImeMode.KatakanaHalf;
             TextBoxContent.Location = new Point(598, 391);
+            TextBoxContent.MaximumSize = new Size(1200, 300);
+            TextBoxContent.MinimumSize = new Size(225, 75);
             TextBoxContent.Multiline = true;
             TextBoxContent.Name = "TextBoxContent";
+            TextBoxContent.ReadOnly = true;
             TextBoxContent.ScrollBars = ScrollBars.Vertical;
-            TextBoxContent.Size = new Size(380, 152);
+            TextBoxContent.Size = new Size(495, 152);
             TextBoxContent.TabIndex = 4;
             // 
             // label1
             // 
+            label1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
             label1.Location = new Point(598, 367);
@@ -170,10 +173,11 @@
             // 
             // ButtonSEarchDocument
             // 
+            ButtonSEarchDocument.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             ButtonSEarchDocument.BackgroundImage = (Image)resources.GetObject("ButtonSEarchDocument.BackgroundImage");
             ButtonSEarchDocument.BackgroundImageLayout = ImageLayout.Zoom;
             ButtonSEarchDocument.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            ButtonSEarchDocument.Location = new Point(984, 25);
+            ButtonSEarchDocument.Location = new Point(1099, 25);
             ButtonSEarchDocument.Name = "ButtonSEarchDocument";
             ButtonSEarchDocument.Size = new Size(50, 48);
             ButtonSEarchDocument.TabIndex = 3;
@@ -182,16 +186,18 @@
             // 
             // TextBoxSearch
             // 
-            TextBoxSearch.Location = new Point(598, 50);
+            TextBoxSearch.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            TextBoxSearch.Location = new Point(713, 50);
             TextBoxSearch.Name = "TextBoxSearch";
             TextBoxSearch.Size = new Size(380, 23);
             TextBoxSearch.TabIndex = 6;
             // 
             // label2
             // 
+            label2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            label2.Location = new Point(598, 25);
+            label2.Location = new Point(713, 25);
             label2.Name = "label2";
             label2.Size = new Size(235, 21);
             label2.TabIndex = 5;
@@ -227,11 +233,33 @@
             labelDBPath.Size = new Size(0, 21);
             labelDBPath.TabIndex = 8;
             // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            label4.Location = new Point(404, 48);
+            label4.Name = "label4";
+            label4.Size = new Size(161, 21);
+            label4.TabIndex = 9;
+            label4.Text = "Показано элементов:";
+            // 
+            // labelCountOfElements
+            // 
+            labelCountOfElements.AutoSize = true;
+            labelCountOfElements.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            labelCountOfElements.Location = new Point(571, 48);
+            labelCountOfElements.Name = "labelCountOfElements";
+            labelCountOfElements.Size = new Size(70, 21);
+            labelCountOfElements.TabIndex = 10;
+            labelCountOfElements.Text = "5 из 100";
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1045, 552);
+            ClientSize = new Size(1161, 552);
+            Controls.Add(labelCountOfElements);
+            Controls.Add(label4);
             Controls.Add(labelDBPath);
             Controls.Add(label3);
             Controls.Add(TextBoxSearch);
@@ -242,7 +270,6 @@
             Controls.Add(buttonRestFilter);
             Controls.Add(ButtonFilterDataBase);
             Controls.Add(ButtonExit);
-            Controls.Add(ButtonDeleteDataBase);
             Controls.Add(buttonRedactDocument);
             Controls.Add(ButtonDelete);
             Controls.Add(ButtonAddDocument);
@@ -263,7 +290,6 @@
         private DataGridView DataGridView;
         private Button ButtonLoadDataBase;
         private Button ButtonSaveDataBase;
-        private Button ButtonDeleteDataBase;
         private Button ButtonExit;
         private Button ButtonFilterDataBase;
         private Button ButtonAddDocument;
@@ -277,5 +303,7 @@
         private Button buttonRestFilter;
         private Label label3;
         private Label labelDBPath;
+        private Label label4;
+        private Label labelCountOfElements;
     }
 }

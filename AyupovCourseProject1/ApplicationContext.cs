@@ -11,7 +11,7 @@ namespace AyupovCourseProject1
 {
     public class ApplicationContext : DbContext
     {
-        private readonly string _dbPath;
+        private readonly string dbPath;
 
         /// <summary>
         /// Коллекция, представляющая таблицу базы данных
@@ -24,12 +24,12 @@ namespace AyupovCourseProject1
         /// <param name="dbPath"></param>
         public ApplicationContext(string dbPath)
         {
-            _dbPath = dbPath;
+            this.dbPath = dbPath;
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite($"Data Source={_dbPath}");
+            optionsBuilder.UseSqlite($"Data Source={dbPath}");
         }
     }
 }

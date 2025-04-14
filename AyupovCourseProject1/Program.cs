@@ -1,3 +1,5 @@
+using QuestPDF.Infrastructure;
+
 namespace AyupovCourseProject1
 {
     internal static class Program
@@ -5,6 +7,7 @@ namespace AyupovCourseProject1
         [STAThread]
         static void Main()
         {
+            QuestPDF.Settings.License = LicenseType.Community;
             ApplicationConfiguration.Initialize();
             Application.Run(new WelcomeForm());
             MainForm mainForm = new MainForm();

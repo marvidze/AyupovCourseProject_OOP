@@ -19,7 +19,7 @@ namespace AyupovCourseProject1
 
         private void WelcomeForm_Load(object sender, EventArgs e)
         {
-
+            
         }
 
         private void FormClick(object sender, EventArgs e)

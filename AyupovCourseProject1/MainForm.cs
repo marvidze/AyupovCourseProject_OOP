@@ -3,13 +3,15 @@ using System.IO;
 using System.Data;
 using System.Windows.Forms;
 using System.Reflection.Metadata;
+using QuestPDF;
+using QuestPDF.Fluent;
 
 namespace AyupovCourseProject1
 {
     public partial class MainForm : Form
     {
 
-        public static DatabaseService DatabaseService { get; private set; } = null!;
+        private static DatabaseService DatabaseService { get; set; } = null!;
         private string CurrentDbPath { get; set; }
 
         public MainForm()
@@ -141,25 +143,29 @@ namespace AyupovCourseProject1
 
         private void LoadDataIntoGridView()
         {
-            var documents = DatabaseService.GetDocuments();
+            List<MyDocument> documents = DatabaseService.GetDocuments();
             DataGridView.DataSource = ConvertToDataTable(documents);
-            labelCountOfElements.Text = DataGridView?.Rows.Count-1 + " из " + DatabaseService.GetCountOfDocuments();
+            labelCountOfElements.Text = $"{documents.Count} из {DatabaseService.GetCountOfDocuments()}";
         }
 
         private DataTable ConvertToDataTable(List<MyDocument> documents)
         {
             DataTable table = new DataTable();
 
-            table.Columns.Add("ID", typeof(int));
-            table.Columns.Add("Имя отправителя", typeof(string));
-            table.Columns.Add("Заголовок", typeof(string));
-            table.Columns.Add("Дата создания", typeof(DateTime));
-            table.Columns.Add("Тема", typeof(string));
-            table.Columns.Add("Содержание", typeof(string));
+            table.Columns.AddRange(new[]
+            {
+                new DataColumn("ID", typeof(int)),
+                new DataColumn("Имя отправителя", typeof(string)),
+                new DataColumn("Заголовок", typeof(string)),
+                new DataColumn("Дата создания", typeof(DateTime)),
+                new DataColumn("Тема", typeof(string)),
+                new DataColumn("Содержание", typeof(string))
+            });
 
             foreach (var doc in documents)
             {
-                table.Rows.Add(doc.ID, doc.SenderName, doc.DocumentTitle, doc.ReceiptDate, doc.DocumentTopic, doc.DocumentContent);
+                table.Rows.Add(doc.ID, doc.SenderName, doc.DocumentTitle,
+                              doc.ReceiptDate, doc.DocumentTopic, doc.DocumentContent);
             }
 
             return table;
@@ -205,7 +211,7 @@ namespace AyupovCourseProject1
                 RedactDocumentForm redactDocumentForm = new RedactDocumentForm(documentId, CurrentDbPath);
                 DialogResult result = redactDocumentForm.ShowDialog();
                 if (result == DialogResult.OK)
-                {
+                { 
                     LoadDataIntoGridView();
                     MessageBox.Show("Документ успешно отредактирован!", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -313,7 +319,6 @@ namespace AyupovCourseProject1
             }
         }
 
-
         private void ButtonSEarchDocument_Click(object sender, EventArgs e)
         {
             string searchText = TextBoxSearch.Text;
@@ -321,13 +326,50 @@ namespace AyupovCourseProject1
             List<MyDocument> filteredDocuments = pair.Item1;
             int countOfElements = pair.Item2;
 
-            DataGridView.DataSource = filteredDocuments;
+            DataGridView.DataSource = ConvertToDataTable(filteredDocuments);
             labelCountOfElements.Text = countOfElements + " из " + DatabaseService.GetCountOfDocuments();
         }
 
         private void ButtonRestFilter_Click(object sender, EventArgs e)
         {
             LoadDataIntoGridView();
+        }
+
+        public void ExportToPdf(string filePath)
+        {
+            try
+            {
+                List<MyDocument> documents = DatabaseService.GetDocuments();
+
+                DocumentPdfTemplate pdf = new(documents);
+
+                pdf.GeneratePdf(filePath);
+
+                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+                {
+                    FileName = filePath,
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка генерации PDF: {ex.Message}",
+                              "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void ButtonCreatePDF_Click(object sender, EventArgs e)
+        {
+            using (var saveDialog = new SaveFileDialog())
+            {
+                saveDialog.Filter = "PDF files (*.pdf)|*.pdf";
+                saveDialog.FileName = $"Отчёт_по_базе_данных_{DateTime.Now:yyyyMMddhh}.pdf";
+
+                if (saveDialog.ShowDialog() == DialogResult.OK)
+                {
+                    ExportToPdf(saveDialog.FileName);
+                }
+            }
         }
     }
 }

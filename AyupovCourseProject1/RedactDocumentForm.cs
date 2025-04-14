@@ -28,7 +28,7 @@ namespace AyupovCourseProject1
 
         private void ButtonConfirm_Click(object sender, EventArgs e)
         {
-            RedactDocument(documentId, textBox_name.Text, textBox_title.Text, textBox_topic.Text, textBox_content.Text);
+            databaseService.RedactDocument(documentId, textBox_name.Text, textBox_title.Text, textBox_topic.Text, textBox_content.Text);
             this.DialogResult = DialogResult.OK;
             Close();
         }
@@ -53,11 +53,6 @@ namespace AyupovCourseProject1
         {
             this.DialogResult = DialogResult.No;
             this.Close();
-        }
-
-        private void RedactDocument(int documentId, string senderName, string documentTitle, string documentTopic, string documentContent)
-        {
-            databaseService.RedactDocument(documentId, senderName, documentTitle, documentTopic, documentContent);
         }
     }
 }

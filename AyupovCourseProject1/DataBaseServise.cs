@@ -64,10 +64,8 @@ namespace AyupovCourseProject1
                 throw new FileNotFoundException($"Файл по пути {filePath} не был найден");
             }
 
-            ApplicationContext context = new ApplicationContext(filePath);
+            ApplicationContext context = new(filePath);
             List<MyDocument> documents = context.Documents.ToList();
-            Console.WriteLine($"Loaded {documents.Count} documents from the database.");
-
         }
 
         /// <summary>
@@ -78,6 +76,7 @@ namespace AyupovCourseProject1
         public MyDocument FindDocumentById(int documentId)
         {
             //IQueryable i = context.Documents.Select(x => x.ID == documentId);
+            context.ChangeTracker.Clear();
             return context.Documents.Find(documentId);
         }
 
@@ -88,7 +87,7 @@ namespace AyupovCourseProject1
 
         public (List<MyDocument>, int) SearchDocumentsByTitle(string title)
         { 
-            var resultList = context.Documents.ToList()
+            List<MyDocument> resultList = context.Documents.ToList()
                 .Where(d => d.DocumentTitle.Contains(title, StringComparison.OrdinalIgnoreCase)).ToList();
 
             int countOfElems = resultList.Count();
@@ -123,10 +122,9 @@ namespace AyupovCourseProject1
         /// <param name="documentTopic">Тема документа</param>
         /// <param name="documentContent">Содержание документа</param>
         public void CreateDocument(string senderName, string documentTitle, DateTime receiptDate, string documentTopic, string documentContent)
-        {
-            int Id;
-            var rnd = new Random();
-            MyDocument document = new MyDocument(senderName, documentTitle, receiptDate, documentTopic, documentContent);
+        { 
+            Random rnd = new();
+            MyDocument document = new(senderName, documentTitle, receiptDate, documentTopic, documentContent);
             context.Documents.Add(document);
             context.SaveChanges();
         }
@@ -155,9 +153,7 @@ namespace AyupovCourseProject1
         /// <returns>Таблица базы данных в виде списка</returns>
         public List<MyDocument> GetDocuments()
         {
-            var documents = context.Documents.ToList();
-            return new List<MyDocument>(documents);
-            
+            return context.Documents.ToList();
         }
 
         /// <summary>

@@ -47,6 +47,7 @@
             labelDBPath = new Label();
             label4 = new Label();
             labelCountOfElements = new Label();
+            buttonCreatePDF = new Button();
             ((System.ComponentModel.ISupportInitialize)DataGridView).BeginInit();
             SuspendLayout();
             // 
@@ -253,6 +254,18 @@
             labelCountOfElements.TabIndex = 10;
             labelCountOfElements.Text = "5 из 100";
             // 
+            // buttonCreatePDF
+            // 
+            buttonCreatePDF.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            buttonCreatePDF.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            buttonCreatePDF.Location = new Point(210, 488);
+            buttonCreatePDF.Name = "buttonCreatePDF";
+            buttonCreatePDF.Size = new Size(188, 55);
+            buttonCreatePDF.TabIndex = 1;
+            buttonCreatePDF.Text = "Создать PDF";
+            buttonCreatePDF.UseVisualStyleBackColor = true;
+            buttonCreatePDF.Click += ButtonCreatePDF_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -274,6 +287,7 @@
             Controls.Add(ButtonDelete);
             Controls.Add(ButtonAddDocument);
             Controls.Add(ButtonSaveDataBase);
+            Controls.Add(buttonCreatePDF);
             Controls.Add(ButtonLoadDataBase);
             Controls.Add(DataGridView);
             Name = "MainForm";
@@ -305,5 +319,6 @@
         private Label labelDBPath;
         private Label label4;
         private Label labelCountOfElements;
+        private Button buttonCreatePDF;
     }
 }

@@ -319,7 +319,8 @@ namespace AyupovCourseProject1
             }
         }
 
-        private void ButtonSEarchDocument_Click(object sender, EventArgs e)
+
+        private void ButtonSearchDocument_Click(object sender, EventArgs e)
         {
             string searchText = TextBoxSearch.Text;
             (List<MyDocument>, int) pair = DatabaseService.SearchDocumentsByTitle(searchText);

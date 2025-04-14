@@ -68,7 +68,6 @@
             textBox_name.Name = "textBox_name";
             textBox_name.Size = new Size(230, 23);
             textBox_name.TabIndex = 14;
-            textBox_name.TextChanged += textBox_name_TextChanged;
             // 
             // label4
             // 

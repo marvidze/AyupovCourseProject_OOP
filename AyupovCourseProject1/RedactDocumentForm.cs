@@ -20,6 +20,14 @@ namespace AyupovCourseProject1
 
         public RedactDocumentForm() => InitializeComponent();
 
+        public RedactDocumentForm(int documentId, string currentDbPath)
+        {
+            InitializeComponent();
+            this.documentId = documentId;
+            databaseService = new DatabaseService(currentDbPath);
+            document = databaseService.FindDocumentById(documentId);
+        }
+
         private void ButtonExit_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
@@ -33,14 +41,6 @@ namespace AyupovCourseProject1
             Close();
         }
 
-        public RedactDocumentForm(int documentId, string currentDbPath)
-        {
-            InitializeComponent();
-            this.documentId = documentId;
-            databaseService = new DatabaseService(currentDbPath);
-            document = databaseService.FindDocumentById(documentId);
-        }
-
         private void RedactDocumentForm_Load(object sender, EventArgs e)
         {
             textBox_name.Text = document.SenderName;
@@ -49,10 +49,9 @@ namespace AyupovCourseProject1
             textBox_content.Text = document.DocumentContent;
         }
 
-        private void button_closeForm_Click(object sender, EventArgs e)
+        private void RedactDocument(int documentId, string senderName, string documentTitle, string documentTopic, string documentContent)
         {
-            this.DialogResult = DialogResult.No;
-            this.Close();
+            databaseService.RedactDocument(documentId, senderName, documentTitle, documentTopic, documentContent);
         }
     }
 }

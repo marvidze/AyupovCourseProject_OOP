@@ -183,7 +183,7 @@
             ButtonSEarchDocument.Size = new Size(50, 48);
             ButtonSEarchDocument.TabIndex = 3;
             ButtonSEarchDocument.UseVisualStyleBackColor = true;
-            ButtonSEarchDocument.Click += ButtonSEarchDocument_Click;
+            ButtonSEarchDocument.Click += ButtonSearchDocument_Click;
             // 
             // TextBoxSearch
             // 

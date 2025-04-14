@@ -29,7 +29,7 @@ namespace AyupovCourseProject1
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite($"Data Source={dbPath}");
+            optionsBuilder.UseSqlite($"Data Source={this.dbPath}");
         }
     }
 }

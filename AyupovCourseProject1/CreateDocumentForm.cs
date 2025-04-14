@@ -47,16 +47,5 @@ namespace AyupovCourseProject1
             textBox_topic.Text = "Тема";
             textBox_content.Text = "Содержание";
         }
-
-        private void button_closeForm_Click(object sender, EventArgs e)
-        {
-            this.DialogResult = DialogResult.No;
-            this.Close();
-        }
-
-        private void textBox_name_TextChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }

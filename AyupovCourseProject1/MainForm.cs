@@ -192,7 +192,7 @@ namespace AyupovCourseProject1
 
         private void ButtonAddDocument_Click(object sender, EventArgs e)
         {
-            CreateDocumentForm createDocumentForm = new CreateDocumentForm(CurrentDbPath);
+            CreateDocumentForm createDocumentForm = new(CurrentDbPath);
             DialogResult result = createDocumentForm.ShowDialog();
             if (result == DialogResult.OK)
             {
@@ -205,13 +205,12 @@ namespace AyupovCourseProject1
         {
             if (DataGridView.SelectedRows.Count > 0)
             {
-
                 int documentId = (int)DataGridView.SelectedRows[0].Cells["Id"].Value;
 
-                RedactDocumentForm redactDocumentForm = new RedactDocumentForm(documentId, CurrentDbPath);
+                RedactDocumentForm redactDocumentForm = new(documentId, CurrentDbPath);
                 DialogResult result = redactDocumentForm.ShowDialog();
                 if (result == DialogResult.OK)
-                { 
+                {
                     LoadDataIntoGridView();
                     MessageBox.Show("Документ успешно отредактирован!", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -236,7 +235,7 @@ namespace AyupovCourseProject1
                 {
                     CurrentDbPath = openFileDialog.FileName;
                     labelDBPath.Text = CurrentDbPath;
-                    DatabaseService = new DatabaseService(CurrentDbPath);
+                    DatabaseService = new(CurrentDbPath);
                     LoadDataIntoGridView();
                     MessageBox.Show("База данных успешно загружена!", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -268,7 +267,7 @@ namespace AyupovCourseProject1
                 {
                     CurrentDbPath = saveFileDialog.FileName;
                     labelDBPath.Text = CurrentDbPath;
-                    DatabaseService = new DatabaseService(CurrentDbPath);
+                    DatabaseService = new(CurrentDbPath);
                     DatabaseService.CreateNewDatabase(CurrentDbPath);
                     DataGridView.DataSource = null;
                     MessageBox.Show("Новая база данных успешно создана!", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);

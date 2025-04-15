@@ -250,9 +250,9 @@
             labelCountOfElements.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
             labelCountOfElements.Location = new Point(571, 48);
             labelCountOfElements.Name = "labelCountOfElements";
-            labelCountOfElements.Size = new Size(70, 21);
+            labelCountOfElements.Size = new Size(52, 21);
             labelCountOfElements.TabIndex = 10;
-            labelCountOfElements.Text = "5 из 100";
+            labelCountOfElements.Text = "0 из 0";
             // 
             // buttonCreatePDF
             // 

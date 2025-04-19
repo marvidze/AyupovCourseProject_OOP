@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Timer = System.Windows.Forms.Timer;
 
 namespace AyupovCourseProject1
 {
@@ -19,7 +20,16 @@ namespace AyupovCourseProject1
 
         private void WelcomeForm_Load(object sender, EventArgs e)
         {
-            
+            Timer timer = new()
+            {
+                Interval = 5000 // Set the duration of the splash screen in milliseconds
+            };
+            timer.Tick += (s, args) =>
+            {
+                timer.Stop();
+                Close();
+            };
+            timer.Start();
         }
 
         private void FormClick(object sender, EventArgs e)

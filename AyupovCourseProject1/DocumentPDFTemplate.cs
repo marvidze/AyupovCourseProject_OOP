@@ -8,13 +8,25 @@ namespace AyupovCourseProject1
     {
         private List<MyDocument> documents;
 
+        /// <summary>
+        /// Конструктор класса DocumentPdfTemplate
+        /// </summary>
+        /// <param name="documents"></param>
         public DocumentPdfTemplate(List<MyDocument> documents)
         {
             this.documents = documents;
         }
 
+        /// <summary>
+        /// Возвращает метаданные PDF-документа
+        /// </summary>
+        /// <returns>метаданные PDF-документа</returns>
         public DocumentMetadata GetMetadata() => DocumentMetadata.Default;
 
+        /// <summary>
+        /// Основной метод, который формирует содержимое PDF
+        /// </summary>
+        /// <param name="container"></param>
         public void Compose(IDocumentContainer container)
         {
             container.Page(page =>
@@ -34,18 +46,16 @@ namespace AyupovCourseProject1
                     .PaddingVertical(1, Unit.Centimetre)
                     .Table(table =>
                     {
-                        // Настройка колонок
                         table.ColumnsDefinition(columns =>
                         {
-                            columns.RelativeColumn(); // ID
+                            columns.RelativeColumn(); 
                             columns.RelativeColumn(3);
-                            columns.RelativeColumn(3); // Название (в 3 раза шире)
-                            columns.RelativeColumn(3); // Дата
-                            columns.RelativeColumn(3); // тема
-                            columns.RelativeColumn(5); // контент
+                            columns.RelativeColumn(3); 
+                            columns.RelativeColumn(3); 
+                            columns.RelativeColumn(3); 
+                            columns.RelativeColumn(5); 
                         });
 
-                        // Заголовки таблицы
                         table.Header(header =>
                         {
                             header.Cell().Text("ID").Bold();
@@ -60,7 +70,6 @@ namespace AyupovCourseProject1
                                 .BorderColor(Colors.Grey.Lighten2);
                         });
 
-                        // Данные
                         foreach (MyDocument doc in documents)
                         {
                             table.Cell().Text(doc.ID.ToString());

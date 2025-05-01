@@ -11,7 +11,8 @@ namespace AyupovCourseProject1
 {
     public class DatabaseService
     {
-        private readonly ApplicationContext context;
+        private ApplicationContext context;
+        private string dbPath;
 
         /// <summary>
         /// Конструктор класса DatabaseService
@@ -19,7 +20,8 @@ namespace AyupovCourseProject1
         /// <param name="dbPath">Путь к базе данных</param>
         public DatabaseService(string dbPath)
         {
-            context = new ApplicationContext(dbPath);
+            this.dbPath = dbPath;
+            context = new ApplicationContext(this.dbPath);
         }
 
         /// <summary>
@@ -79,19 +81,26 @@ namespace AyupovCourseProject1
             context.ChangeTracker.Clear();
             return context.Documents.Find(documentId);
         }
-
+        
+        /// <summary>
+        /// Получить количество документов в базе данных
+        /// </summary>
+        /// <returns>кол-во документов в БД</returns>
         public int GetCountOfDocuments()
         {
             return context.Documents.Count();
         }
 
+        /// <summary>
+        /// Поиск документа по заголовку
+        /// </summary>
+        /// <param name="title">заголовок</param>
+        /// <returns>Список документов, количество документов в списке</returns>
         public (List<MyDocument>, int) SearchDocumentsByTitle(string title)
         { 
             List<MyDocument> resultList = context.Documents.ToList()
                 .Where(d => d.DocumentTitle.Contains(title, StringComparison.OrdinalIgnoreCase)).ToList();
-
-            int countOfElems = resultList.Count();
-            return (resultList, countOfElems);
+            return (resultList, resultList.Count());
         }
 
         /// <summary>
@@ -111,6 +120,7 @@ namespace AyupovCourseProject1
             document.DocumentContent = documentContent;
 
             context.SaveChanges();
+            context.Entry(document).Reload();
         }
 
         /// <summary>
@@ -140,6 +150,12 @@ namespace AyupovCourseProject1
             context.SaveChanges();
         }
 
+        /// <summary>
+        /// Получить документы по дате
+        /// </summary>
+        /// <param name="startDate">начало отсчёта даты</param>
+        /// <param name="endDate">конец отсчёта даты</param>
+        /// <returns>список документов, количество элементов в списке</returns>
         public (List<MyDocument>, int) GetDocumentsByDate(DateTime startDate, DateTime endDate)
         {
             List<MyDocument> resultList = [.. context.Documents.Where(d => d.ReceiptDate >= startDate && d.ReceiptDate <= endDate)];
@@ -153,7 +169,8 @@ namespace AyupovCourseProject1
         /// <returns>Таблица базы данных в виде списка</returns>
         public List<MyDocument> GetDocuments()
         {
-            return context.Documents.ToList();
+            context = new ApplicationContext(this.dbPath);
+            return context.Documents.ToList(); 
         }
 
         /// <summary>
